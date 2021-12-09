@@ -41,14 +41,27 @@ class SignUpService {
         const { name, email, password, admin } = this.signUpData
         const passwordHash = hashSync(password)
 
-        const user = await User.create({
-            name,
-            email,
-            password: passwordHash,
-            admin
-        })
+        try {
+            const user = await User.create({
+                name,
+                email,
+                password: passwordHash,
+                admin
+            })
+    
+            return user
+        } catch(err) {
+            this.throwDatabaseError(err)
+        }
+    }
 
-        return user
+    private throwDatabaseError(err: Error) {
+        const formattedError = {
+            status: 'Error during database operation.',
+            error: err.message
+        }
+
+        throw new Error(JSON.stringify(formattedError))
     }
 }
 
