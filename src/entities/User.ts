@@ -8,25 +8,28 @@ interface UserData {
 }
 
 class User {
-    static async create({ name, email, password, admin }: UserData) {
-        const user = await prisma.user.create({
-            data: {
-                name,
-                email,
-                password,
-                admin
-            }
-        })
+    static async create(data: UserData) {
+        try {
+            const user = await prisma.user.create({
+                data
+            })
 
-        return user
+            return user
+        } catch(err) {
+            throw new Error(err.message)
+        }
     }
 
     static async exists(email: string) {
-        const exists = await prisma.user.findFirst({
-            where: { email }
-        })
+        try {
+            const exists = await prisma.user.findFirst({
+                where: { email }
+            })
 
-        return !!exists
+            return !!exists
+        } catch(err) {
+            throw new Error(err.message)
+        }
     }
 }
 
