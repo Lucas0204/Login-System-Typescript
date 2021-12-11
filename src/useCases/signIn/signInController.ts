@@ -6,8 +6,8 @@ class SignInController {
         const signInService = new SignInService(req.body)
 
         try {
-            const user = await signInService.execute()
-            return res.json(user)
+            const token = await signInService.execute()
+            return res.json({ token })
         } catch(err) {
             return res.status(400).json({
                 error: err.message
