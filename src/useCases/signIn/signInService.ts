@@ -9,8 +9,11 @@ interface SignInData {
 
 class SignInService {
     private signInData: SignInData;
-    constructor(data: SignInData) {
-        this.signInData = data
+    constructor({ email, password }: SignInData) {
+        this.signInData = {
+            email,
+            password
+        }
     }
 
     async execute() {

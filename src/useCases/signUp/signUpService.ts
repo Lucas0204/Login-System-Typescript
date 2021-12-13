@@ -10,8 +10,13 @@ interface SignUpData {
 
 class SignUpService {
     private signUpData: SignUpData;
-    constructor(data: SignUpData) {
-        this.signUpData = data
+    constructor({ name, email, password, admin }: SignUpData) {
+        this.signUpData = {
+            name,
+            email,
+            password,
+            admin
+        }
     }
 
     async execute() {
