@@ -7,6 +7,12 @@ interface UserData {
     admin?: boolean;
 }
 
+interface DataToUpdate {
+    name?: string;
+    email?: string;
+    password?: string;
+}
+
 class User {
     static async create(data: UserData) {
         try {
@@ -15,6 +21,19 @@ class User {
             })
 
             return user
+        } catch(err) {
+            throw new Error(err.message)
+        }
+    }
+
+    static async update(id: string, data: DataToUpdate) {
+        try {
+            const updatedUser = await prisma.user.update({
+                where: { id },
+                data
+            })
+
+            return updatedUser
         } catch(err) {
             throw new Error(err.message)
         }
