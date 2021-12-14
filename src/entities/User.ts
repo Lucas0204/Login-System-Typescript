@@ -75,6 +75,15 @@ class User {
         }
     }
 
+    static async getAll() {
+        try {
+            const users = await prisma.user.findMany()
+            return users
+        } catch(err) {
+            throw new Error(err.message)
+        }
+    }
+
     id: string;
     name: string;
     email: string;
