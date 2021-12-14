@@ -12,4 +12,6 @@ routes.post('/signin', SignInController.handle)
 
 routes.post('/user/edit', ensureAuthenticated, EditUserController.handle)
 
+routes.get('/users', ensureAuthenticated, ensureAdmin, )
+
 export { routes }

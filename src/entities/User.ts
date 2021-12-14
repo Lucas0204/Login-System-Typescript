@@ -63,6 +63,18 @@ class User {
         }
     }
 
+    static async findById(id: string) {
+        try {
+            const user = await prisma.user.findFirst({
+                where: { id }
+            })
+
+            return user
+        } catch(err) {
+            throw new Error(err.message)
+        }
+    }
+
     id: string;
     name: string;
     email: string;
