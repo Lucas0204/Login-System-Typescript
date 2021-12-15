@@ -4,6 +4,7 @@ import { SignInController } from './useCases/signIn/signInController'
 import { EditUserController } from './useCases/editUser/editUserController'
 import { GetUsersController } from './useCases/getUsers/getUsersController'
 import { GetOneUserController } from './useCases/getOneUser/getOneUserController'
+import { DeleteUserController } from './useCases/deleteUser/deleteUserController'
 import { ensureAuthenticated } from './middlewares/ensureAuthenticated'
 import { ensureAdmin } from './middlewares/ensureAdmin'
 
@@ -18,5 +19,7 @@ routes.post('/user/edit', ensureAuthenticated, EditUserController.handle)
 routes.get('/users', ensureAuthenticated, ensureAdmin, GetUsersController.handle)
 
 routes.get('/user/:id', ensureAuthenticated, ensureAdmin, GetOneUserController.handle)
+
+routes.delete('/user/:id', ensureAuthenticated, ensureAdmin, DeleteUserController.handle)
 
 export { routes }

@@ -39,6 +39,18 @@ class User {
         }
     }
 
+    static async delete(id: string) {
+        try {
+            const deletedUser = await prisma.user.delete({
+                where: { id }
+            })
+
+            return deletedUser
+        } catch(err) {
+            throw new Error(err.message)
+        }
+    }
+
     static async exists(email: string) {
         try {
             const exists = await prisma.user.findFirst({
