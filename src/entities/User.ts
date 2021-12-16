@@ -115,6 +115,8 @@ class User {
     admin: boolean;
     created_at: Date;
     updated_at: Date;
+    password_reset_token: string;
+    password_reset_expires: Date;
 }
 
 export { User }

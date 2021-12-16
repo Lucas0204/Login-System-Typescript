@@ -6,6 +6,7 @@ import { GetUsersController } from './useCases/getUsers/getUsersController'
 import { GetOneUserController } from './useCases/getOneUser/getOneUserController'
 import { DeleteUserController } from './useCases/deleteUser/deleteUserController'
 import { ForgotPasswordController } from './useCases/forgotPassword/forgotPasswordController'
+import { ResetPasswordController } from './useCases/resetPassword/resetPasswordController'
 import { ensureAuthenticated } from './middlewares/ensureAuthenticated'
 import { ensureAdmin } from './middlewares/ensureAdmin'
 
@@ -18,6 +19,8 @@ routes.post('/signin', SignInController.handle)
 routes.post('/user/edit', ensureAuthenticated, EditUserController.handle)
 
 routes.post('/forgot_password', ForgotPasswordController.handle)
+
+routes.post('/reset_password', ResetPasswordController.handle)
 
 routes.get('/users', ensureAuthenticated, ensureAdmin, GetUsersController.handle)
 
