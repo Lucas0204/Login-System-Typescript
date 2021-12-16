@@ -51,7 +51,10 @@ class EditUserService {
 
     private async updateUser(id: string, data: { [key: string]: any }) {
         try {
-            const updatedUser = await User.update(id, data)
+            const updatedUser = await User.update({
+                where: { id },
+                data
+            })
             return updatedUser
         } catch(err) {
             throw new Error(err.message)

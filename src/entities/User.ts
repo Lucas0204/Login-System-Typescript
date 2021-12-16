@@ -7,11 +7,19 @@ interface UserData {
     admin?: boolean;
 }
 
+interface UpdateParams {
+    where: { id?: string; email?: string; }
+    data: DataToUpdate;
+}
+
 interface DataToUpdate {
     name?: string;
     email?: string;
     password?: string;
+    password_reset_token?: string;
+    password_reset_expires?: Date;
 }
+
 
 class User {
     static async create(data: UserData) {
@@ -26,10 +34,14 @@ class User {
         }
     }
 
-    static async update(id: string, data: DataToUpdate) {
+    static async update(params: UpdateParams) {
+        const { data } = params
+        const { id, email } = params.where
+        const where = id ? { id } : { email }
+
         try {
             const updatedUser = await prisma.user.update({
-                where: { id },
+                where,
                 data
             })
 
