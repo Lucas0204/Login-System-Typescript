@@ -99,6 +99,19 @@ class User {
         }
     }
 
+    static async findByGithubId(github_id: number) {
+        try {
+            const user = await prisma.user.findFirst({
+                where: { github_id }
+            })
+
+
+            return user
+        } catch(err) {
+            throw new Error(err.messasge)
+        }
+    }
+
     static async getAll() {
         try {
             const users = await prisma.user.findMany()
@@ -113,10 +126,11 @@ class User {
     email: string;
     password: string;
     admin: boolean;
+    github_id?: number;
     created_at: Date;
     updated_at: Date;
-    password_reset_token: string;
-    password_reset_expires: Date;
+    password_reset_token?: string;
+    password_reset_expires?: Date;
 }
 
 export { User }

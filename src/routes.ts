@@ -1,4 +1,5 @@
 import { Router } from 'express'
+
 import { SignUpController } from './useCases/signUp/signUpController'
 import { SignInController } from './useCases/signIn/signInController'
 import { EditUserController } from './useCases/editUser/editUserController'
@@ -7,10 +8,24 @@ import { GetOneUserController } from './useCases/getOneUser/getOneUserController
 import { DeleteUserController } from './useCases/deleteUser/deleteUserController'
 import { ForgotPasswordController } from './useCases/forgotPassword/forgotPasswordController'
 import { ResetPasswordController } from './useCases/resetPassword/resetPasswordController'
+
+import { GithubAuthController } from './useCases/githubAccess/githubAccessController'
+import { GithubSignCallback } from './useCases/githubAccess/githubSignCallback'
+import { AuthenticateUserByGithub } from './useCases/githubAuth/githubAuthController'
+
 import { ensureAuthenticated } from './middlewares/ensureAuthenticated'
 import { ensureAdmin } from './middlewares/ensureAdmin'
 
 const routes = Router()
+
+
+routes.get('/github', GithubAuthController.handle)
+
+routes.get('/signin/callback', GithubSignCallback.handle)
+
+routes.post('/github_auth', AuthenticateUserByGithub.handle)
+
+
 
 routes.post('/signup', SignUpController.handle)
 
