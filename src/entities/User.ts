@@ -7,6 +7,12 @@ interface UserData {
     admin?: boolean;
 }
 
+interface GithubUserData {
+    name: string;
+    email: string;
+    github_id: number;
+}
+
 interface UpdateParams {
     where: { id?: string; email?: string; }
     data: DataToUpdate;
@@ -23,6 +29,18 @@ interface DataToUpdate {
 
 class User {
     static async create(data: UserData) {
+        try {
+            const user = await prisma.user.create({
+                data
+            })
+
+            return user
+        } catch(err) {
+            throw new Error(err.message)
+        }
+    }
+
+    static async createFromGithub(data: GithubUserData) {
         try {
             const user = await prisma.user.create({
                 data

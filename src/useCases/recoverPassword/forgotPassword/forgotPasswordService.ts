@@ -1,5 +1,5 @@
-import { transporter } from '../../resources/mailTransporter'
-import { User } from '../../entities/User'
+import { transporter } from '../../../resources/mailTransporter'
+import { User } from '../../../entities/User'
 import crypto from 'crypto'
 
 interface IEmail {
