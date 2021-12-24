@@ -1,4 +1,5 @@
 import { User } from '../../entities/User'
+import { sign } from 'jsonwebtoken'
 import axios from 'axios'
 
 interface GithubUserData {
@@ -32,8 +33,9 @@ class GithubAuthService {
         const githubUser = await this.getUserFromGithub()
 
         const user = await this.findOrCreateUser(githubUser)
+        const token = this.generateToken(user)
 
-        return user
+        return token
     }
 
     private async getAccessToken() {
@@ -103,6 +105,19 @@ class GithubAuthService {
         } catch(err) {
             throw new Error(err.message)
         }
+    }
+
+    private generateToken(user: User) {
+        const token = sign({
+            email: user.email
+        },
+        process.env.JWT_SECRET,
+        {
+            subject: user.id,
+            expiresIn: '1d'
+        })
+
+        return token
     }
 }
 

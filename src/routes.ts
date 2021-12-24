@@ -20,11 +20,10 @@ const routes = Router()
 
 
 routes.get('/github', GithubAuthController.handle)
-
 routes.get('/signin/callback', GithubSignCallback.handle)
 
-routes.post('/github_auth', AuthenticateUserByGithub.handle)
 
+routes.post('/github_auth/:code', AuthenticateUserByGithub.handle)
 
 
 routes.post('/signup', SignUpController.handle)

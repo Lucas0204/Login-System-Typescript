@@ -4,7 +4,7 @@ class GithubSignCallback {
     static handle(req: Request, res: Response) {
         const { code } = req.query
 
-        res.json({ code })
+        res.redirect(`/github_auth/${code}`)
     }
 }
 
